@@ -1,0 +1,52 @@
+#modalProducto input{
+	text-align: center;
+}
+#modalProducto select{
+	text-align: center;
+}
+
+#modalProductoEdit input{
+	text-align: center;
+}
+#modalProductoEdit select{
+	text-align: center;
+}
+
+
+#precios{
+	margin-top: 8px;
+	max-height: 100px;
+	overflow-y: auto;
+	padding: 10px;
+}
+#precios .inp {
+	display:flex;
+	gap:4px;
+}
+#precios .inp button{
+	height: 37px;
+}
+
+
+
+#preciosEdit{
+	margin-top: 8px;
+	max-height: 100px;
+	overflow-y: auto;
+	padding: 10px;
+}
+#preciosEdit .inp {
+	display:flex;
+	gap:4px;
+}
+#preciosEdit .inp button{
+	height: 37px;
+}
+
+
+#tableProducto td{
+	text-align: center;
+}
+#tableProducto th{
+	text-align: center;
+}

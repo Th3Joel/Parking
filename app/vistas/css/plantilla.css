@@ -1,0 +1,14 @@
+  
+        nav li a{
+           cursor: pointer; 
+        }
+
+
+      
+
+      .image img{
+        width: 50px;
+        border-radius: 8px;
+        margin-top: 10px;
+        margin-left: -10px;
+      }

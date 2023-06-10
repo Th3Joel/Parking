@@ -1,0 +1,13 @@
+ .card input{
+    text-align: center;
+  }
+  #formEmpresa h4{
+   background-color: skyblue; 
+   width: 50%;
+   border-radius: 15px;
+  }
+
+#img{
+   border-radius: 10px;
+}
+
