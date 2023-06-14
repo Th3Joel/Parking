@@ -1,5 +1,4 @@
-
-$("#tableCate").DataTable({
+$("#tableClientes").DataTable({
   responsive:true,
   deferRender:true,
   retrieve:true,
@@ -8,16 +7,17 @@ $("#tableCate").DataTable({
     url:'app/asset/DataTables/lenguaje.json'
   }
 });
-$("#AddCate").click(function(){
-  $("#modalAddCate").modal("show");
+
+$("#btnAdd").click(function(){
+  $("#modalAdd").modal("show");
 });
 
-function addCate(){
- $('#btnAddCate').attr("disabled",true);
- $("#btnAddCate").html('<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>');
+function add(){
+ $('#btnAddModal').attr("disabled",true);
+ $("#btnAddModal").html('<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>');
  var fd = new FormData(document.querySelector("#formAdd"));
  fd.append("op",1);
- fetch("controller/categoria.controller.php",{
+ fetch("controller/cliente.controller.php",{
    method:"POST",
    body:fd
  })
@@ -25,16 +25,16 @@ function addCate(){
    return e.text();
  })
  .then(function(e){
-  
    $("#joel").html(e);
+   $(".txtModalBody input").val("");
  });
 }
 
-$("#tableCate").on("click","#btnEdit",function(){
+$("#tableClientes").on("click","#btnEdit",function(){
   let fd = new FormData();
   fd.append("op",2);
   fd.append("id",$(this).attr("idEdit"));
-  fetch("controller/categoria.controller.php",{
+  fetch("controller/cliente.controller.php",{
     method:"POST",
     body:fd
   })
@@ -42,19 +42,23 @@ $("#tableCate").on("click","#btnEdit",function(){
     return e.json();
   })
   .then(function(e){
-    $("#categoria").val(e.nombre);
-    $("#btnEditCate").attr("idEdit",e.id_categoria);
-    $("#modalEditCate").modal("show");
+    $("#txtNombre").val(e.Nombre);
+    $("#txtApellido").val(e.Apellido);
+    $("#txtDireccion").val(e.Direccion);
+    $("#txtTelefono").val(e.Telefono);
+    $("#txtCorreo").val(e.Correo);
+    $("#btnEditModal").attr("idEdit",e.Id_Cliente);
+    $("#modalEdit").modal("show");
   });
 });
 
-function EditCate(){
-  $('#btnEditCate').attr("disabled",true);
-  $("#btnEditCate").html('<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>');
+function Edit(){
+  $('#btnEditModal').attr("disabled",true);
+  $("#btnEditModal").html('<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>');
   var fd = new FormData(document.querySelector("#formEdit"));
   fd.append("op",3);
-  fd.append("id",$("#btnEditCate").attr("idEdit"));
-  fetch("controller/categoria.controller.php",{
+  fd.append("id",$("#btnEditModal").attr("idEdit"));
+  fetch("controller/cliente.controller.php",{
     method:"POST",
     body:fd
   })
@@ -66,7 +70,7 @@ function EditCate(){
   });
 }
 
-$("#tableCate").on("click","#btnElim",function(){
+$("#tableClientes").on("click","#btnElim",function(){
   var fd = new FormData();
   fd.append("op",4);
   fd.append("id",$(this).attr("idElim"));
@@ -76,17 +80,17 @@ $("#tableCate").on("click","#btnElim",function(){
 
 
   Swal.fire({
-    title: '¿Está seguro de borrar la categoría?',
+    title: '¿Está seguro de borrar el cliente?',
     text: "¡Si no lo está puede cancelar la acción!",
     icon: 'warning',
     showCancelButton: true,
     confirmButtonColor: '#3085d6',
     cancelButtonColor: '#d33',
     cancelButtonText: 'Cancelar',
-    confirmButtonText: 'Si, borrar categoría!'
+    confirmButtonText: 'Si, borrar cliente!'
   }).then(function(result){
     if (result.value) { 
-      fetch("controller/categoria.controller.php",{
+      fetch("controller/cliente.controller.php",{
         method:"POST",
         body:fd
       })

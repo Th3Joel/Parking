@@ -31,6 +31,7 @@ if (isset($_POST['opcion'])) {
 			echo 1;
 		}
 	}else if ($_POST['opcion'] == "0" && $_POST['token'] == $_SESSION['tokenUserAdd']) {
+		require "permiso.php";
 		$nombre_temporal = $_FILES['img']['tmp_name'];
 		$nombre_original = $_FILES['img']['name'];
 		$extension = pathinfo($nombre_original,PATHINFO_EXTENSION);
@@ -132,6 +133,7 @@ if (isset($_POST['opcion'])) {
 			";
 		}
 	}else if ($_POST['opcion'] == 2 && $_POST['token'] == $_SESSION['tokenUserDel']) {
+		require "permiso.php";
 		$img = ModelUsuarios::DatosUser($_POST['id']);
 		$r = ModelUsuarios::DelUser($_POST['id']);
 		if ($r == "ok") {
@@ -188,9 +190,10 @@ if (isset($_POST['opcion'])) {
 			";
 		}
 	}else if ($_POST['opcion'] == 3) {
-		 
+		 require "permiso.php";
 		echo json_encode(ModelUsuarios::DatosUser($_POST['id']));
 	}else if ($_POST['opcion'] == 4 && $_POST['token'] == $_SESSION['tokenUserEdit']) {
+		require "permiso.php";
 		$ubicacion="";
 		if ($_FILES['img']['tmp_name'] != "") {
 					// code...
@@ -312,6 +315,7 @@ if (isset($_POST['opcion'])) {
 				</script>";
 		}
 	}else if($_POST['opcion'] == 5 && $_POST['token'] == $_SESSION['tokenUserEstado']){
+		require "permiso.php";
 		$f = ModelUsuarios::Estado($_POST['id']);
 		if ($f["estado"] == "Activado") {
 		echo 1;

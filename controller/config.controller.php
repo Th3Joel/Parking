@@ -1,5 +1,6 @@
 <?php 
 require "../model/config.model.php"; 
+require "permiso.php";
 session_start();
 
 if (isset($_POST["opcion"])) {
