@@ -1,0 +1,37 @@
+form input {
+    text-align: center;
+}
+
+form select {
+    text-align: center;
+}
+
+.busqueda{
+    display: flex;
+    gap: 10px;
+}
+
+.busqueda input{
+    width: 200px;
+    margin-right: 0;
+    margin-left: auto;
+}
+
+thead tr th{
+    vertical-align: center;
+    text-align: center;
+}
+
+tbody tr td{
+    vertical-align: center;
+    text-align: center;
+}
+
+.cuerpoTabla{
+    padding: 20px;
+    min-width: 700px;
+}
+
+.card-body{
+    overflow: auto;
+}

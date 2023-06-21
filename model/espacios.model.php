@@ -5,7 +5,20 @@ require "db.php";
 class ModelEspacios{
 	public static function Mostrar($id){
 		if ($id == null) {
-			$t = Conexion::conectar()->prepare("SELECT * FROM parqueos");
+			$t = Conexion::conectar()->
+							prepare("SELECT 
+											par.Id_Parqueo,
+											par.NumeroParqueo AS Ubicacion,
+											par.Estado AS Estado,
+											cl.Nombre + ' ' + cl.Apellido AS Cliente,
+											cla.TipoVehiculo,
+											veh.Placa
+										FROM
+											parqueos par
+											LEFT JOIN suscripciones sus ON par.Id_Parqueo = sus.Id_Parqueo
+											LEFT JOIN vehiculos veh ON sus.Id_Vehiculo = veh.Id_Vehiculo
+											LEFT JOIN clientes cl ON cl.Id_Cliente = veh.Id_Cliente
+											LEFT JOIN clasificacion cla ON cla.Id_Clasificacion = veh.Id_Clasificacion");
 			if ($t->execute()) {
 				return $t->fetchAll(PDO::FETCH_ASSOC);//Para traer solo las claves de texto
 			}
@@ -16,7 +29,7 @@ class ModelEspacios{
 			if ($g->execute()) {
 				return $g->fetch(PDO::FETCH_ASSOC);
 			}
-			$g->close();
+			$g=null;
 		}
 		
 	}
@@ -73,7 +86,7 @@ class ModelEspacios{
 				}else{
 					return "error";
 				}
-				$f->close();
+				$f=null;
 			
 			$o=null;
 			$oo=null;

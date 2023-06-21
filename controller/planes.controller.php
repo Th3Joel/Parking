@@ -45,7 +45,7 @@ class ControlPlanes{
 							$('#modalAddPlanes').modal('hide');
 							$('#btnAddModalPlanes').attr('disabled',false);
 	 					$('#btnAddModalPlanes').html('Guardar');
-							datosTablas(1);
+						 datosTablas().TPlanes();
 						
 
 				</script>
@@ -116,7 +116,7 @@ class ControlPlanes{
 							$('#modalEditPlanes').modal('hide');
 							$('#btnEditModalPlanes').attr('disabled',false);
 	 					    $('#btnEditModalPlanes').html('Guardar');
-							datosTablas(1);
+							 datosTablas().TPlanes();
 						
 
 				</script>
@@ -170,7 +170,7 @@ class ControlPlanes{
 							icon:'success',
 							title: 'Plan eliminado correctamente'
 							});
-									datosTablas(1);
+							datosTablas().TPlanes();
 				</script>
 
 			";
@@ -241,7 +241,7 @@ class ControlTipos{
 							$('#btnAddModalTipo').attr('disabled',false);
 	 						$('#btnAddModalTipo').html('Guardar');
 							$('#modalAddTipo').modal('hide');
-							datosTablas(2);
+							datosTablas().Ttipos();
 						
 
 				</script>
@@ -312,7 +312,7 @@ class ControlTipos{
 							$('#btnEditModalTipo').attr('disabled',false);
 	 						$('#btnEditModalTipo').html('Guardar');
 							$('#modalEditTipo').modal('hide');
-							datosTablas(2);
+							datosTablas().Ttipos();
 						
 
 				</script>
@@ -366,7 +366,7 @@ class ControlTipos{
 							icon:'success',
 							title: 'Clasificación eliminado correctamente'
 							});
-									datosTablas(2);
+							datosTablas().Ttipos();
 				</script>
 
 			";
@@ -396,7 +396,7 @@ class ControlTipos{
 }
 
 if (isset($_POST['op'])) {
-	switch ($_POST['op']) {
+	switch ($_POST['op']) { 
 		case 0:
 				echo json_encode(ControlPlanes::Mostrar(null));
 			break;
@@ -406,13 +406,15 @@ if (isset($_POST['op'])) {
 		case 2:
 				ControlPlanes::Add(array(
 					"nombre" => $_POST['nombre'],
-					"precio" => $_POST['precio']
+					"precio" => $_POST['precio'],
+					"duracion" => $_POST['duracion']
 				));
 			break;
 		case 3:
 				ControlPlanes::Edit(array(
 					"nombre" => $_POST['nombre'],
-					"precio" => $_POST['precio']
+					"precio" => $_POST['precio'],
+					"duracion" => $_POST['duracion']
 				),$_POST['id']);
 			break;
 		case 4:

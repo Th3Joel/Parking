@@ -5,7 +5,8 @@ if (isset($_SESSION['iniciar']) && $_SESSION['iniciar'] == "ok") {
 		ob_start();
 		include "app/vistas/".$_POST['ruta'].".php";
 		echo ob_get_clean();
-	}else{
+	}
+	else{
 		ob_start();
 		include "app/plantilla.php";
 		echo ob_get_clean();

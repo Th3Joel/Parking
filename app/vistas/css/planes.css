@@ -5,6 +5,8 @@
 	border:2px solid darkorange;
 	border-radius: 20px;
 	max-width: 600px;
+	overflow: auto;
+	max-height: 500px;
 }
 
 .tablaEstilosPlanes thead tr th{
@@ -20,6 +22,8 @@
 	border:2px solid darkorange;
 	border-radius: 20px;
 	max-width: 530px;
+	overflow: auto;
+	max-height: 500px;
 }
 
 .tablaEstilosClasificacion thead tr th{
@@ -27,5 +31,17 @@
 }
 
 .tablaEstilosClasificacion tbody tr td{
+	text-align: center;
+}
+
+#txtBusPlanes{
+	width: 200px;
+	margin-bottom: 10px;
+	text-align: center;
+}
+
+#txtBusTipos{
+	width: 200px;
+	margin-bottom: 10px;
 	text-align: center;
 }

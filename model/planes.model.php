@@ -3,7 +3,7 @@
 require "db.php";
 
 class ModelPlanes{
-	public static function Mostrar($id){
+	public static function Mostrar($id){ 
 		if ($id == null) {
 			$t = Conexion::conectar()->prepare("SELECT * FROM planes_suscripcion");
 			if ($t->execute()) {
@@ -16,7 +16,7 @@ class ModelPlanes{
 			if ($g->execute()) {
 				return $g->fetch(PDO::FETCH_ASSOC);
 			}
-			$g->close();
+			$g=null;
 		}
 		
 	}
@@ -29,15 +29,17 @@ class ModelPlanes{
 		if (is_array($hh)) {
 			return array('status'=>'duplicado','name'=>$hh["NombrePlan"]);
 		}else{
-			$l = Conexion::conectar()->prepare("INSERT into planes_suscripcion (NombrePlan,PrecioPlan) values (:nombre,:precio)");
+			$l = Conexion::conectar()->prepare("INSERT into planes_suscripcion (NombrePlan,PrecioPlan,Duracion)
+			 values (:nombre,:precio,:duracion)");
 			$l->bindParam(":nombre",$data["nombre"],PDO::PARAM_STR);
 			$l->bindParam(":precio",$data["precio"],PDO::PARAM_INT);
+			$l->bindParam(":duracion",$data["duracion"],PDO::PARAM_STR);
 			if ($l->execute()) {
 				return "ok";
 			}else{
 				return "error";
 			}
-			$l->close();
+			$l=null;
 		}
 		$h=null; 
 		$hh=null;
@@ -51,16 +53,18 @@ class ModelPlanes{
 		if (is_array($hh) && $data["nombre"] != $t["NombrePlan"]) {
 			return array('status'=>'duplicado','name'=>$hh["NombrePlan"]);
 		}else{
-			$l = Conexion::conectar()->prepare("UPDATE planes_suscripcion set NombrePlan=:nombre,PrecioPlan=:precio where Id_Planes = :id");
+			$l = Conexion::conectar()->prepare("UPDATE planes_suscripcion 
+			set NombrePlan=:nombre,PrecioPlan=:precio,Duracion=:duracion where Id_Planes = :id");
 			$l->bindParam(":id",$id,PDO::PARAM_INT);
 			$l->bindParam(":nombre",$data["nombre"],PDO::PARAM_STR);
 			$l->bindParam(":precio",$data["precio"],PDO::PARAM_INT);
+			$l->bindParam(":duracion",$data["duracion"],PDO::PARAM_STR);
 			if ($l->execute()) {
 				return "ok";
 			}else{
 				return "error";
 			}
-			$l->close();
+			$l=null;
 		}
 		$t=null;
 		$h=null;
@@ -74,7 +78,7 @@ class ModelPlanes{
 				}else{
 					return "error";
 				}
-				$f->close();
+				$f=null;
 			
 			$o=null;
 			$oo=null;
@@ -97,7 +101,7 @@ class ModelTipos{
 			if ($g->execute()) {
 				return $g->fetch(PDO::FETCH_ASSOC);
 			}
-			$g->close();
+			$g=null;
 		}
 		
 	}
@@ -117,7 +121,7 @@ class ModelTipos{
 			}else{
 				return "error";
 			}
-			$l->close();
+			$l=null;
 		}
 		$h=null; 
 		$hh=null;
@@ -139,7 +143,7 @@ class ModelTipos{
 			}else{
 				return "error";
 			}
-			$l->close();
+			$l=null;
 		}
 		$t=null;
 		$h=null;
@@ -153,7 +157,7 @@ class ModelTipos{
 				}else{
 					return "error";
 				}
-				$f->close();
+				$f=null;
 			
 			$o=null;
 			$oo=null;

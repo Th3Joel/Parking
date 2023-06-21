@@ -1,9 +1,7 @@
 <?php 
- include "model/cliente.model.php";
  $_SESSION['tokenDel'] = bin2hex(random_bytes(64));
  $_SESSION['tokenAdd']= bin2hex(random_bytes(64));
  $_SESSION['tokenEdit'] = bin2hex(random_bytes(64));
- $clientes = ModelCliente::Mostrar(null); 
  ?>
 
 <link rel="stylesheet" type="text/css" href="app/vistas/css/planes.css">
@@ -50,20 +48,25 @@
 
               <div align="center">
                 <div class="tablaEstilosPlanes">
-                 <table id="tablePlanes" class="table table-sm table-striped nowrap table-hover w-100">
+                  <input type="search" id="txtBusPlanes" class="form-control" placeholder="Búsqueda">
+                <table id="tablePlanes" class="table table-sm table-striped nowrap table-hover w-100">
                   <thead>
                     <tr>
                       <th>#</th>
                       <th>Nombre</th>
                       <th>Precio</th>
+                      <th>Duracion</th>
                       <th>Acciones</th>
                     </tr>
                   </thead>
                   <tbody id="bodyPlanes">
                     
-                    
+                  
                 </tbody>
               </table>
+
+
+
             </div>
             </div>
 
@@ -73,6 +76,7 @@
             
              <div align="center">
                 <div class="tablaEstilosClasificacion">
+                <input type="search" id="txtBusTipos" class="form-control" placeholder="Búsqueda">
                  <table id="tableClasificacion" class="table table-sm table-striped nowrap table-hover w-100">
                   <thead>
                     <tr>
@@ -121,6 +125,17 @@
             <span class="input-group-text">Precio C$</span>
             <input type="text" name="precio" class="form-control" required>
           </div>
+          <div class="input-group mt-3">
+            <span class="input-group-text">Duracion</span>
+            <select name="duracion" class="form-control">
+              <option value="">--Seleccionar</option>
+              <option value="Diario">Diario</option>
+              <option value="Semanal">Semanal</option>
+              <option value="Mensual">Mensual</option>
+              <option value="Anual">Anual</option>
+            </select>
+          </div>
+        
         </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
@@ -148,6 +163,17 @@
             <span class="input-group-text">Precio C$</span>
             <input type="text" name="precio" id="txtPrecio" class="form-control" required>
           </div>
+          <div class="input-group mt-3">
+            <span class="input-group-text">Duracion</span>
+          <select name="duracion" id="txtDuracion" class="form-control" required>
+              <option value="">--Seleccionar---</option>
+              <option value="Diario">Diario</option>
+              <option value="Semanal">Semanal</option>
+              <option value="Mensual">Mensual</option>
+              <option value="Anual">Anual</option>
+            </select>
+          </div>
+         
         </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>

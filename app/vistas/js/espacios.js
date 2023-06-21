@@ -22,15 +22,17 @@ $("#txtBuscar").on("keyup",()=>{
 });
 
 function buscar(term) {
-  return datosEspacios.filter(objeto => {
-    for (let key in objeto) {
-      if (objeto[key].toLowerCase().includes(term.toLowerCase())) {
-        return true;
-      }
-    }
-    //return false;
-  });
-}
+	return datosEspacios.filter(objeto => {
+	  for (let key in objeto) {
+		const value = objeto[key];
+		if (value && value.toLowerCase().includes(term.toLowerCase())) {
+		  return true;
+		}
+	  }
+	  return false;
+	});
+  }
+  
 
 
 function MostrarDatos(da){
@@ -42,20 +44,17 @@ function MostrarDatos(da){
 			if(es.Estado == 'Ocupado'){
 				f += 
 				'<div class="col tarjetaRed">'+
-					'<h5>( '+es.NumeroParqueo+' )</h5>'+
+					'<h5>( '+es.Ubicacion+' )</h5>'+
 					'<p class="title">'+es.Estado+' por</p>'+
-					'<h5>Joel Calderon Urbina</h5>'+
-					'<h4>Motocicleta</h4>'+
-					'<h4>MAT-65G</h4>'+
-					'<div class="botones">'+
-						'<button class="btn btn-primary" idEdit="'+es.Id_Parqueo+'" id="btnEdit"><i class="bi bi-pen"></i></button>'+
-					'</div>'+
+					'<h5>'+es.Cliente+'</h5>'+
+					'<h4>'+es.TipoVehiculo+'</h4>'+
+					'<h4>'+es.Placa+'</h4>'+
 				'</div>'
 				;
 			}else if(es.Estado == 'Libre'){
 				f += 
 				'<div class="col tarjetaGreen">'+
-					'<h5>( '+es.NumeroParqueo+' )</h5>'+
+					'<h5>( '+es.Ubicacion+' )</h5>'+
 					'<h3>'+es.Estado+'</h3>'+
 					'<div class="botones">'+
 						'<button class="btn btn-primary" idEdit="'+es.Id_Parqueo+'" id="btnEdit"><i class="bi bi-pen"></i></button>'+
@@ -97,13 +96,7 @@ function add(){
 }
 
 
-$(".tarjetas").on("mouseenter",".tarjetaRed",function(){
-	$(this).find(".botones").slideDown(200);
-});
 
-$(".tarjetas").on("mouseleave",".tarjetaRed",function(){
-	$(this).find(".botones").fadeOut(200);
-});
 
 $(".tarjetas").on("mouseenter",".tarjetaGreen",function(){
 	$(this).find(".botones").slideDown(200);
