@@ -160,6 +160,13 @@ $empresa = ConfigModelo::MostrarEmpresa();
             </a>
           </li>
 
+          <li  class="nav-item">
+            <a class="nav-link" id="btnReportes">
+              <i class="nav-icon bi bi-clipboard-data"></i>
+              <p>Reportes</p>
+            </a>
+          </li>
+
           <li class="nav-item">
             <a id="sistema" class="nav-link">
               <i class=" nav-icon bi bi-android"></i>

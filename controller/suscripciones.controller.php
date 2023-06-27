@@ -11,7 +11,7 @@ class ControlSuscripciones
             }else{
                 ModelSuscripciones::SusEstado($value["Id_Suscripcion"],"Activa");
             }
-        }
+        } 
 
         return ModelSuscripciones::Mostrar($id);
     }

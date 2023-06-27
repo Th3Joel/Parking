@@ -120,7 +120,7 @@ var crud = (form) => {//SI form es nulo
 datosTablas().TSus();
 //Búsqueda
 $("#txtSearch").on("keyup", function () {
-  datosTablas().TSus($("#txtSearch").val());
+  datosTablas().TSus($("#txtSearch").val()); 
 });
 
 //Acciones para agregar

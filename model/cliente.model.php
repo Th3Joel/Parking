@@ -16,7 +16,7 @@ class ModelCliente{
 			if ($g->execute()) {
 				return $g->fetch();
 			}
-			$g->close();
+			$g=null;
 		}
 		
 	}
@@ -40,7 +40,7 @@ class ModelCliente{
 			}else{
 				return "error";
 			}
-			$l->close();
+			$l=null;
 		}
 		$h=null; 
 		$hh=null;
@@ -66,7 +66,7 @@ class ModelCliente{
 			}else{
 				return "error";
 			}
-			$l->close();
+			$l=null;
 		}
 		$t=null;
 		$h=null;
@@ -88,7 +88,7 @@ class ModelCliente{
 				}else{
 					return "error";
 				}
-				$f->close();
+				$f=null;
 			
 			$o=null;
 			$oo=null;

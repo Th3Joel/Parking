@@ -18,6 +18,7 @@ $("#btnConfig").click(function () {
   $("#btnVehiculos").removeClass("active");
   $("#btnEspacios").removeClass("active");
   $("#btnInspeccion").removeClass("active");
+  $("#btnReportes").removeClass("active");
   pajina("config", "app");
 });
 
@@ -32,6 +33,7 @@ $("#btnInicio").click(function () {
   $("#btnVehiculos").removeClass("active");
   $("#btnEspacios").removeClass("active");
   $("#btnInspeccion").removeClass("active");
+  $("#btnReportes").removeClass("active");
   pajina("inicio", "app");
 });
 
@@ -46,6 +48,7 @@ $("#btnUsers").click(function () {
   $("#btnVehiculos").removeClass("active");
   $("#btnEspacios").removeClass("active");
   $("#btnInspeccion").removeClass("active");
+  $("#btnReportes").removeClass("active");
   pajina("users", "app");
 });
 
@@ -60,6 +63,7 @@ $("#btnClientes").click(function () {
   $("#btnVehiculos").removeClass("active");
   $("#btnEspacios").removeClass("active");
   $("#btnInspeccion").removeClass("active");
+  $("#btnReportes").removeClass("active");
   pajina("clientes", "app");
 });
 
@@ -74,6 +78,7 @@ $("#btnEspacios").click(function () {
   $("#btnSuscripcion").removeClass("active");
   $("#btnVehiculos").removeClass("active");
   $("#btnInspeccion").removeClass("active");
+  $("#btnReportes").removeClass("active");
   pajina("espacios", "app");
 });
 
@@ -88,6 +93,7 @@ $("#btnVehiculos").click(function () {
   $("#btnSuscripcion").removeClass("active");
   $("#btnEspacios").removeClass("active");
   $("#btnInspeccion").removeClass("active");
+  $("#btnReportes").removeClass("active");
   pajina("vehiculos", "app");
 });
 
@@ -102,6 +108,7 @@ $("#btnSuscripcion").click(function () {
   $("#btnEspacios").removeClass("active");
   $("#btnVehiculos").removeClass("active");
   $("#btnInspeccion").removeClass("active");
+  $("#btnReportes").removeClass("active");
   pajina("suscripciones", "app");
 });
 
@@ -116,6 +123,7 @@ $("#btnPlanes").click(function () {
   $("#btnVehiculos").removeClass("active");
   $("#btnEspacios").removeClass("active");
   $("#btnInspeccion").removeClass("active");
+  $("#btnReportes").removeClass("active");
   pajina("planes", "app");
 });
 
@@ -130,5 +138,21 @@ $("#btnInspeccion").click(function () {
   $("#btnPlanes").removeClass("active");
   $("#btnEspacios").removeClass("active");
   $("#btnVehiculos").removeClass("active");
+  $("#btnReportes").removeClass("active");
   pajina("inspecciones", "app");
+});
+
+$("#btnReportes").click(function () {
+  $("#btnReportes").addClass("active");
+  $("#btnSuscripcion").removeClass("active");
+  $("#btnUsers").removeClass("active");
+  $("#btnInicio").removeClass("active");
+  $("#btnConfig").removeClass("active");
+  $("#sistema").removeClass("active");
+  $("#btnClientes").removeClass("active");
+  $("#btnPlanes").removeClass("active");
+  $("#btnEspacios").removeClass("active");
+  $("#btnVehiculos").removeClass("active");
+  $("#btnInspeccion").removeClass("active");
+  pajina("reportes", "app");
 });

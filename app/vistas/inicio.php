@@ -28,10 +28,10 @@
               <div class="inner">
                 <h3>150</h3>
 
-                <p>New Orders</p>
+                <p>Vehiculos</p>
               </div>
               <div class="icon">
-                <i class="bi bi-bag"></i>
+                <i class="bi bi-truck"></i>
               </div>
               <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
             </div>
@@ -43,7 +43,7 @@
               <div class="inner">
                 <h3>53<sup style="font-size: 20px">%</sup></h3>
 
-                <p>Bounce Rate</p>
+                <p>Suscripciones</p>
               </div>
               <div class="icon">
                 <i class="bi bi-bar-chart"></i>
@@ -58,7 +58,7 @@
               <div class="inner">
                 <h3>44</h3>
 
-                <p>User Registrations</p>
+                <p>Clientes</p>
               </div>
               <div class="icon">
                 <i class="bi bi-person"></i>
@@ -73,10 +73,10 @@
               <div class="inner">
                 <h3>65</h3>
 
-                <p>Unique Visitors</p>
+                <p>Espacios</p>
               </div>
               <div class="icon">
-                <i class="bi bi-pie-chart"></i>
+                <i class="bi bi-p-circle"></i>
               </div>
               <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
             </div>

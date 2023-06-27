@@ -8,7 +8,7 @@ class ModelUsuarios{
        $con->bindParam(":user",$datos["user"],PDO::PARAM_STR);
        $con->execute();
         return $con->fetch();  
-       $con->close();
+       $con=null;
 	}
     static public function AddUser($datos){
         $con1 = Conexion::conectar()->prepare("SELECT usuario from usuarios where usuario = :user");
@@ -17,7 +17,7 @@ class ModelUsuarios{
         $result = $con1->fetch();
         if (is_array($result)) {
             return "duplicado";
-            $con1->close();
+            $con1=null;
             $result = null; 
         }else{
 
@@ -35,7 +35,7 @@ class ModelUsuarios{
             }else{
                 return "error";
             }
-            $con->close();
+            $con=null;
         }
     }
     static public function EditUser($datos){
@@ -73,12 +73,12 @@ class ModelUsuarios{
             }else{
                 return "error";
             }
-            $c->close();
+            $c=null;
 
         }
-        $con->close();
+        $con=null;
             $re = null;
-            $con3->close();
+            $con3=null;
             $us=null;
     }
 
@@ -90,14 +90,14 @@ class ModelUsuarios{
         }else{
             return "error";
         }
-        $con->close();
+        $con=null;
     }
     static public function DatosUser($id){
         $con = Conexion::conectar()->prepare("SELECT nombre, correo, contacto, cedula, usuario, img, tipo from usuarios where id_user = :id");
         $con->bindParam(":id",$id,PDO::PARAM_INT);
         $con->execute();
         return $con->fetch();
-        $con->close();
+        $con=null;
     }
     static public function Estado($id){
         $ac = "Activado";
@@ -121,7 +121,7 @@ class ModelUsuarios{
         $r=null;
         $ac = null;
         $de=null;
-        $f->close();
-        $i->close();
+        $f=null;
+        $i=null;
     }
 }  
