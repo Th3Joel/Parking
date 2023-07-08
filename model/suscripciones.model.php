@@ -7,59 +7,14 @@ class ModelSuscripciones{
 	public static function Mostrar($id){
 		if ($id == null) {
 			$t = Conexion::conectar()->
-                        prepare("SELECT
-                                        s.Id_Suscripcion,
-                                        cl.Nombre + ' ' + cl.Apellido AS Cliente,
-                                        us.nombre AS Usuario,
-                                        pl.NombrePlan,
-                                        veh.Placa,
-                                        veh.Marca,
-                                        pl.Duracion,
-                                        par.NumeroParqueo,
-                                        par.Estado as EstadoParqueo,
-                                        s.Fecha_Inicio,
-                                        s.Fecha_Final,
-                                        s.CantidadTiempo,
-                                        s.Estado 
-                                    FROM
-                                        suscripciones s
-                                        INNER JOIN vehiculos veh ON s.Id_Vehiculo= veh.Id_Vehiculo
-                                        INNER JOIN clientes cl ON cl.Id_Cliente = veh.Id_Cliente
-                                        INNER JOIN usuarios us ON s.Id_Usuario = us.id_user
-                                        INNER JOIN planes_suscripcion pl ON s.Id_Planes = pl.Id_Planes
-                                        INNER JOIN parqueos par ON s.Id_Parqueo = par.Id_Parqueo");
+                        prepare("SELECT * from SuscripcionMostrar");
 
 			if ($t->execute()) {
 				return $t->fetchAll(PDO::FETCH_ASSOC);
 			}
 			$t=null;
 		}else{
-			$g = Conexion::conectar()->prepare("SELECT
-                                                    s.Id_Suscripcion,
-                                                    cl.Nombre + ' ' + cl.Apellido AS Cliente,
-                                                    us.nombre AS Usuario,
-                                                    pl.NombrePlan,
-                                                    pl.Duracion,
-                                                    pl.PrecioPlan,
-                                                    par.NumeroParqueo,
-                                                    veh.Id_Vehiculo,
-                                                    pl.Id_Planes,
-                                                    par.Estado as EstadoParqueo,
-                                                    par.Id_Parqueo,
-                                                    s.Fecha_Inicio,
-                                                    s.Fecha_Final,
-                                                    s.CantidadTiempo,
-                                                    s.Estado,
-                                                    s.PagosFecha AS Pagos
-                                                FROM
-                                                    suscripciones s
-                                                    INNER JOIN vehiculos veh ON s.Id_Vehiculo= veh.Id_Vehiculo
-                                                    INNER JOIN clientes cl ON cl.Id_Cliente = veh.Id_Cliente
-                                                    INNER JOIN usuarios us ON s.Id_Usuario = us.id_user
-                                                    INNER JOIN planes_suscripcion pl ON s.Id_Planes = pl.Id_Planes
-                                                    INNER JOIN parqueos par ON s.Id_Parqueo = par.Id_Parqueo
-                                                    
-                                                    WHERE s.Id_Suscripcion = :id");
+			$g = Conexion::conectar()->prepare("EXEC SuscripcionesMostrarId :id");
 			$g->bindParam(":id",$id,PDO::PARAM_INT);
 			if ($g->execute()) {
 				return $g->fetch(PDO::FETCH_ASSOC);
@@ -70,12 +25,12 @@ class ModelSuscripciones{
 	} 
 
 	static public function Add($data){
-            $p = Conexion::conectar()->prepare("SELECT * FROM suscripciones WHERE Id_Vehiculo = :id");
+            /*$p = Conexion::conectar()->prepare("SELECT * FROM suscripciones WHERE Id_Vehiculo = :id");
             $p->bindParam(":id",$data["vehiculo"],PDO::PARAM_INT);
             $p->execute();
             if (is_array($p->fetch(PDO::FETCH_ASSOC))) {
                 return "duplicado";
-            }else{
+            }else{*/
                 $l = Conexion::conectar()->
                 prepare("INSERT into 
                 suscripciones (Id_Vehiculo,Id_Usuario,Id_Planes,Id_Parqueo,Fecha_Inicio,Fecha_Final,CantidadTiempo,Estado)
@@ -84,17 +39,19 @@ class ModelSuscripciones{
                 $l->bindParam(":usuario",$data["usuario"],PDO::PARAM_INT);
                 $l->bindParam(":plan",$data["plan"],PDO::PARAM_INT);
                 $l->bindParam(":parqueo",$data["parqueo"],PDO::PARAM_INT);
-                $l->bindParam(":inicio",$data["inicio"],PDO::PARAM_STR);
+                $l->bindParam(":inicio",$data["inicio"],PDO::PARAM_STR); 
                 $l->bindParam(":final",$data["final"],PDO::PARAM_STR);
                 $l->bindParam(":cantidad",$data["cantidad"],PDO::PARAM_INT);
                 $l->bindParam(":estado",$data["estado"],PDO::PARAM_STR);
-                if ($l->execute()) {
-                    return "ok";
-                }else{
-                    return "error";
+                try{
+                    if ($l->execute()) {
+                        return "ok";
+                    }
+                }catch(Exception $e){
+                    return array("status"=>"error","msj"=>$e->getMessage());
                 }
                 $l=null;
-            }
+            
             $p=null;
 		}
 	

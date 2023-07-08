@@ -1,4 +1,11 @@
-    <!-- Content Header (Page header) -->
+   <?php
+    require "model/inicio.model.php";
+    $vehiculos = ModelInicio::Vehiculos();
+    $suscripciones = ModelInicio::Suscripciones();
+    $clientes = ModelInicio::Clientes();
+    $espacios = ModelInicio::Espacios();
+   ?>
+   <!-- Content Header (Page header) -->
     <div class="animate__animated animate__fadeIn">
     <div class="content-header">
       <div class="container-fluid">
@@ -26,14 +33,14 @@
             <!-- small box -->
             <div class="small-box bg-info">
               <div class="inner">
-                <h3>150</h3>
+                <h2><?php echo $vehiculos["total"]; ?></h2>
 
-                <p>Vehiculos</p>
+                <h5>Vehiculos</h5>
               </div>
               <div class="icon">
                 <i class="bi bi-truck"></i>
               </div>
-              <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+              <a href="#" class="small-box-footer btnVehiculos">More info <i class="fas fa-arrow-circle-right"></i></a>
             </div>
           </div>
           <!-- ./col -->
@@ -41,14 +48,14 @@
             <!-- small box -->
             <div class="small-box bg-success">
               <div class="inner">
-                <h3>53<sup style="font-size: 20px">%</sup></h3>
+                <h2><?php echo $suscripciones["total"]; ?></h2>
 
-                <p>Suscripciones</p>
+                <h5>Suscripciones</h5>
               </div>
               <div class="icon">
                 <i class="bi bi-bar-chart"></i>
               </div>
-              <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+              <a href="#" class="small-box-footer btnSuscripciones">More info <i class="fas fa-arrow-circle-right"></i></a>
             </div>
           </div>
           <!-- ./col -->
@@ -56,14 +63,14 @@
             <!-- small box -->
             <div class="small-box bg-warning">
               <div class="inner">
-                <h3>44</h3>
+                <h2><?php echo $clientes["total"]; ?></h2>
 
-                <p>Clientes</p>
+                <h5>Clientes</h5>
               </div>
               <div class="icon">
                 <i class="bi bi-person"></i>
               </div>
-              <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+              <a href="#" class="small-box-footer btnClientes">More info <i class="fas fa-arrow-circle-right"></i></a>
             </div>
           </div>
           <!-- ./col -->
@@ -71,14 +78,14 @@
             <!-- small box -->
             <div class="small-box bg-danger">
               <div class="inner">
-                <h3>65</h3>
+                <h2><?php echo $espacios["total"]; ?></h2>
 
-                <p>Espacios</p>
+                <h5>Espacios</h5>
               </div>
               <div class="icon">
                 <i class="bi bi-p-circle"></i>
               </div>
-              <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+              <a href="#" class="small-box-footer btnEspacios">More info <i class="fas fa-arrow-circle-right"></i></a>
             </div>
           </div>
           <!-- ./col -->
@@ -107,3 +114,4 @@
 
 </div>
 
+<script src="app/vistas/js/inicio.js"></script>

@@ -36,14 +36,14 @@ class ModelVehiculo{
 	}
 
 	static public function Add($data){
-		$h = Conexion::conectar()->prepare("SELECT Placa from vehiculos where REPLACE(LOWER(Placa),' ','') 
+		/*$h = Conexion::conectar()->prepare("SELECT Placa from vehiculos where REPLACE(LOWER(Placa),' ','') 
 		= REPLACE(LOWER(:placa),' ','')");
 		$h->bindParam(":placa",$data["placa"],PDO::PARAM_STR);
 		$h->execute();
 		$hh = $h->fetch();
 		if (is_array($hh)) {
 			return array('status'=>'duplicado','name'=>$hh["Placa"]);
-		}else{
+		}else{*/
 			$l = Conexion::conectar()->prepare("INSERT into vehiculos (Placa,Id_Cliente,Id_Clasificacion,Marca,Modelo,Color) 
 			values (:placa,:cliente,:tipo,:marca,:modelo,:color)");
 
@@ -53,13 +53,18 @@ class ModelVehiculo{
 			$l->bindParam(":marca",$data["marca"],PDO::PARAM_STR);
 			$l->bindParam(":modelo",$data["modelo"],PDO::PARAM_STR);
 			$l->bindParam(":color",$data["color"],PDO::PARAM_STR);
-			if ($l->execute()) {
-				return "ok";
-			}else{
-				return "error";
+			try {
+				if ($l->execute()) {
+					return "ok";
+				}
+			} catch (Exception $e) {
+				return array("status"=>"error","msj"=>$e->getMessage());
 			}
+			
+				
+			
 			$l=null;
-		}
+		
 		$h=null; 
 		$hh=null;
 	}

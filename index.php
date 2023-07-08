@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+	<link rel="shortcut icon" href="favicon2.ico">
 	<!--<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src localhost/spa; child-src 'none';" />-->
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">

@@ -5,6 +5,11 @@ class ControlSuscripciones
 {
     static public function Mostrar($id)
     { 
+       ControlSuscripciones::IsVencido();
+        return ModelSuscripciones::Mostrar($id);
+    }
+    //Metodo para actualizar todas las suscripciones si esta vencido o no
+    static public function IsVencido(){
         foreach (ModelSuscripciones::Mostrar(null) as $key => $value) {
             if (date("Y-m-d") > $value["Fecha_Final"]) {
                 ModelSuscripciones::SusEstado($value["Id_Suscripcion"],"Vencida");
@@ -12,8 +17,6 @@ class ControlSuscripciones
                 ModelSuscripciones::SusEstado($value["Id_Suscripcion"],"Activa");
             }
         } 
-
-        return ModelSuscripciones::Mostrar($id);
     }
 
     static public function inputSel(){
@@ -45,8 +48,10 @@ class ControlSuscripciones
 
 
     }
-    static public function Detalle($id)
+    static public function Detalle($id,$isReporte)
     {
+        ControlSuscripciones::IsVencido();
+
         $datos = ModelSuscripciones::Mostrar($id);
 
         //Para convertir texto plano en un array valido
@@ -69,10 +74,19 @@ class ControlSuscripciones
                 break;
         }
 
+        if ($isReporte) {
+            //Para el reporte
+            return array(
+                "datos" => $datos,
+                "factura" => $factura
+            );
+        }
+
         echo json_encode(array(
             "datos" => $datos,
             "factura" => $factura
         ));
+        
     }
 
     static public function RecorrerTiempo($i,$f,$precio,$tiempo,$pagos)
@@ -96,6 +110,9 @@ class ControlSuscripciones
 
             // Recorrer los días entre la fecha inicial y la fecha final
             while ($fechaInicio <= $fechaFinal) {
+                // Añadir un día a la fecha inicial
+                $fechaInicio->modify('+1 '.$tiempo);
+                
                 // Incrementar el contador si el día actual es mayor o igual a la fecha actual
                 if ($fechaInicio <= $fechaActual) {
                     $dias++;
@@ -104,13 +121,12 @@ class ControlSuscripciones
                         $detalle[$dias] = array("Fecha" => $fechaInicio->format('Y-m-d'),"Deuda" => "Pagado", "subtotal" => 'C$ '.number_format($precio,2));
                     }else{
                         $subtotal += $precio;
-                        $detalle[$dias] = array("Fecha" => $fechaInicio->format('Y-m-d'),"Deuda" => "Pendiente", "subtotal" => 'C$ '.number_format($subtotal,2));
+                        $detalle[$dias] = array("Fecha" => $fechaInicio->format('Y-m-d'),"Deuda" => "Pendiente", "subtotal" => 'C$ '.number_format($precio,2));
                     }
                     
                 }
 
-                // Añadir un día a la fecha inicial
-                $fechaInicio->modify('+1 '.$tiempo);
+                
             }
             $detalle["Total"] = 'C$ '.number_format($subtotal,2);
             return $detalle;
@@ -152,6 +168,32 @@ class ControlSuscripciones
         );
 
         $respuesta = ModelSuscripciones::Add($dNew);
+        if(is_array($respuesta)){
+            if($respuesta["status"] =="error"){
+                echo "
+                <script>
+                var Toast = Swal.mixin({
+                    toast:true,
+                    position: 'top-end',
+                    showConfirmButton:false,
+                    timer:1500,
+                    timerProgressBar:true,
+                    didOpen: (toast) => {
+                        toast.addEventListener('mouseenter',Swal.stopTimer);
+                        toast.addEventListener('mouseleave',Swal.resumeTimer);
+                    }
+                    });
+                    Toast.fire({
+                        icon:'error',
+                        title: '".$respuesta["msj"]."'
+                        });
+                        $('#btnAddModal').attr('disabled',false);
+                     $('#btnAddModal').html('Guardar');
+                     
+                </script>
+                        ";
+            }
+        }else
         if ($respuesta == "ok") {
             ModelSuscripciones::estadoParqueo($datos["parqueo"], "Ocupado");
             echo "
@@ -179,29 +221,6 @@ class ControlSuscripciones
                      inputSel();
                 </script>
             ";
-        }else if ($respuesta == "duplicado") {
-            echo "
-                <script>
-                var Toast = Swal.mixin({
-                    toast:true,
-                    position: 'top-end',
-                    showConfirmButton:false,
-                    timer:1500,
-                    timerProgressBar:true,
-                    didOpen: (toast) => {
-                        toast.addEventListener('mouseenter',Swal.stopTimer);
-                        toast.addEventListener('mouseleave',Swal.resumeTimer);
-                    }
-                    });
-                    Toast.fire({
-                        icon:'error',
-                        title: 'Este vehículo ya tiene una suscripción activa'
-                        });
-                        $('#btnAddModal').attr('disabled',false);
-                     $('#btnAddModal').html('Guardar');
-                     
-                </script>
-                        ";
         } else if ($respuesta == "error") {
             echo "
                 <script>
@@ -422,7 +441,7 @@ if (isset($_POST['op'])) {
             ControlSuscripciones::Del($_POST['id']);
             break;
         case 5:
-            ControlSuscripciones::Detalle($_POST['id']);
+            ControlSuscripciones::Detalle($_POST['id'],false);
             break;
         case 6:
             ControlSuscripciones::Pagos($_POST["id"],$_POST["pagos"]);

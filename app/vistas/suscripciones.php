@@ -151,7 +151,7 @@ $parqueos = ModelSuscripciones::parqueos();
             <select name="plan" id="txtTipo" class="form-control" required>
               <option value="">---Seleccionar---</option>
               <?php
-              foreach ($planes as $key => $value) {
+              foreach ($planes as $key => $value) {  
                 echo "
                 <option value=" . $value["Id_Planes"] . ">" . $value["NombrePlan"] . " (" . $value["Duracion"] ." C$".$value["PrecioPlan"].")" . "</option>
                 ";

@@ -22,25 +22,27 @@ class ModelPlanes{
 	}
 
 	static public function Add($data){
-		$h = Conexion::conectar()->prepare("SELECT NombrePlan from planes_suscripcion where REPLACE(LOWER(NombrePlan),' ','') = REPLACE(LOWER(:nombre),' ','')");
+		/*$h = Conexion::conectar()->prepare("SELECT NombrePlan from planes_suscripcion where REPLACE(LOWER(NombrePlan),' ','') = REPLACE(LOWER(:nombre),' ','')");
 		$h->bindParam(":nombre",$data["nombre"],PDO::PARAM_STR);
 		$h->execute();
 		$hh = $h->fetch(PDO::FETCH_ASSOC);
 		if (is_array($hh)) {
 			return array('status'=>'duplicado','name'=>$hh["NombrePlan"]);
-		}else{
+		}else{*/
 			$l = Conexion::conectar()->prepare("INSERT into planes_suscripcion (NombrePlan,PrecioPlan,Duracion)
 			 values (:nombre,:precio,:duracion)");
 			$l->bindParam(":nombre",$data["nombre"],PDO::PARAM_STR);
 			$l->bindParam(":precio",$data["precio"],PDO::PARAM_INT);
 			$l->bindParam(":duracion",$data["duracion"],PDO::PARAM_STR);
-			if ($l->execute()) {
-				return "ok";
-			}else{
-				return "error";
+			try {
+				if ($l->execute()) {
+					return "ok";
+				}
+			} catch (Exception $e) {
+				  return array("status"=>"error","msj"=>$e->getMessage());
 			}
 			$l=null;
-		}
+		
 		$h=null; 
 		$hh=null;
 	}
@@ -107,22 +109,25 @@ class ModelTipos{
 	}
 
 	static public function Add($data){
-		$h = Conexion::conectar()->prepare("SELECT TipoVehiculo from clasificacion where REPLACE(LOWER(TipoVehiculo),' ','') = REPLACE(LOWER(:nombre),' ','')");
+		/*$h = Conexion::conectar()->prepare("SELECT TipoVehiculo from clasificacion where REPLACE(LOWER(TipoVehiculo),' ','') = REPLACE(LOWER(:nombre),' ','')");
 		$h->bindParam(":nombre",$data["nombre"],PDO::PARAM_STR);
 		$h->execute();
 		$hh = $h->fetch(PDO::FETCH_ASSOC);
 		if (is_array($hh)) {
 			return array('status'=>'duplicado','name'=>$hh["TipoVehiculo"]);
-		}else{
+		}else{*/
 			$l = Conexion::conectar()->prepare("INSERT into clasificacion (TipoVehiculo) values (:nombre)");
 			$l->bindParam(":nombre",$data["nombre"],PDO::PARAM_STR);
-			if ($l->execute()) {
-				return "ok";
-			}else{
-				return "error";
+			try {
+				if ($l->execute()) {
+					return "ok";
+				}
+			} catch (Exception $e) {
+				  return array("status" => "error","msj"=>$e->getMessage());
 			}
+
 			$l=null;
-		}
+		
 		$h=null; 
 		$hh=null;
 	}

@@ -11,11 +11,11 @@ class ControlVehiculo{
 	static public function Add($data){ 
 		$f = ModelVehiculo::Add($data);
 		if (is_array($f)) {
-			if ($f["status"] == "duplicado") {
+			if ($f["status"] == "error") {
 				echo '<script>
 	                    Swal.fire({
 	                      title:"Placa repetida",
-	                      text:"La placa { '.$f["name"].' } es igual o parecido a la entrada ('.$data["placa"].')!",
+	                      text:"'.$f["msj"].'",
 	                      icon:"error",
 	                      confirmButtonText:"¡Cerrar!"
 	                    });
@@ -50,7 +50,7 @@ class ControlVehiculo{
 
 				</script>
 			";
-		}else if ($f = "error") {
+		}/*else if ($f = "error") {
 				echo "
 					<script>
 						var Toast = Swal.mixin({
@@ -75,7 +75,7 @@ class ControlVehiculo{
 
 					</script>
 				";
-			}
+			}*/
 		
 	}
 

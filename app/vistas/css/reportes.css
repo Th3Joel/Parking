@@ -1,0 +1,9 @@
+.contenido form{
+    min-width: 300px;
+}
+.contenido input {
+    text-align: center;
+}
+.contenido select {
+    text-align: center;
+}

@@ -11,11 +11,11 @@ class ControlPlanes{
 	static public function Add($data){ 
 		$f = ModelPlanes::Add($data);
 		if (is_array($f)) {
-			if ($f["status"] == "duplicado") {
+			if ($f["status"] == "error") {
 				echo '<script>
 	                    Swal.fire({
 	                      title:"Nombre repetido",
-	                      text:"El plan { '.$f["name"].' } es igual o parecido a la entrada ('.$data["nombre"].')!",
+	                      text:"'.$f["msj"].'",
 	                      icon:"error",
 	                      confirmButtonText:"¡Cerrar!"
 	                    });
@@ -207,11 +207,11 @@ class ControlTipos{
 	static public function Add($data){ 
 		$f = ModelTipos::Add($data);
 		if (is_array($f)) {
-			if ($f["status"] == "duplicado") {
+			if ($f["status"] == "error") {
 				echo '<script>
 	                    Swal.fire({
 	                      title:"Nombre repetido",
-	                      text:"La clasificación { '.$f["name"].' } es igual o parecido a la entrada ('.$data["nombre"].')!",
+	                      text:"'.$f["msj"].'",
 	                      icon:"error",
 	                      confirmButtonText:"¡Cerrar!"
 	                    });
@@ -246,7 +246,7 @@ class ControlTipos{
 
 				</script>
 			";
-		}else if ($f = "error") {
+		}/*else if ($f = "error") {
 				echo "
 					<script>
 						var Toast = Swal.mixin({
@@ -271,7 +271,7 @@ class ControlTipos{
 
 					</script>
 				";
-			}
+			}*/
 		
 	}
 

@@ -210,7 +210,7 @@ $("tbody").on("click", "#btnDet", function () {
         break;
       case "Semanal":
         tiempo = "Semanas";
-        $("#Encabezado").html("Semanas");
+        $("#Encabezado").html("Semanas"); 
         break;
       case "Mensual":
         tiempo = "Meses";
@@ -234,6 +234,7 @@ $("tbody").on("click", "#btnDet", function () {
     $("#vencimiento").val(d.datos.Fecha_Final);
     Dfactura(d);
     $("#modalDetalle").modal("show");
+    console.log(d);
   });
 });
 

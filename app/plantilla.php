@@ -133,23 +133,16 @@ $empresa = ConfigModelo::MostrarEmpresa();
           </li>
 
           <li  class="nav-item">
-            <a class="nav-link" id="btnEspacios">
-              <i class="nav-icon bi bi-p-circle"></i>
-              <p>Espacios</p>
-            </a>
-          </li>
-
-          <li  class="nav-item">
             <a class="nav-link" id="btnVehiculos">
               <i class="nav-icon bi bi-truck"></i>
               <p>Vehículos</p>
             </a>
           </li>
 
-           <li  class="nav-item">
-            <a class="nav-link" id="btnInspeccion">
-              <i class="nav-icon bi bi-check-circle"></i>
-              <p>Inspecciones</p>
+          <li  class="nav-item">
+            <a class="nav-link" id="btnEspacios">
+              <i class="nav-icon bi bi-p-circle"></i>
+              <p>Espacios</p>
             </a>
           </li>
 
@@ -159,6 +152,15 @@ $empresa = ConfigModelo::MostrarEmpresa();
               <p>Suscripciones</p>
             </a>
           </li>
+
+          <li  class="nav-item">
+          <a class="nav-link" id="btnInspeccion">
+            <i class="nav-icon bi bi-check-circle"></i>
+            <p>Inspecciones</p>
+          </a>
+        </li>
+
+          
 
           <li  class="nav-item">
             <a class="nav-link" id="btnReportes">
@@ -210,15 +212,7 @@ $empresa = ConfigModelo::MostrarEmpresa();
           ';}
           ?>
 
-          <li class="nav-item">
-            <a href="pages/widgets.html" class="nav-link">
-              <i class="nav-icon fas fa-th"></i>
-              <p>
-                Widgets
-                <span class="right badge badge-danger">New</span>
-              </p>
-            </a>
-          </li>
+         
 
           
         </ul>
@@ -254,3 +248,4 @@ $empresa = ConfigModelo::MostrarEmpresa();
 </body>
 
   <script type="text/javascript" src="app/vistas/js/plantilla.js"></script>
+  <script type="text/javascript" src="app/vistas/js/inicio.js"></script>
