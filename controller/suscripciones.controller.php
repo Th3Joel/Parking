@@ -4,31 +4,39 @@ session_start();
 class ControlSuscripciones
 {
     static public function Mostrar($id)
-    { 
-       ControlSuscripciones::IsVencido();
-        return ModelSuscripciones::Mostrar($id);
+    {
+        try {
+            ControlSuscripciones::IsVencido();
+            return ModelSuscripciones::Mostrar($id);
+        } catch (Exception $th) {
+            echo $th;
+        }
+        
     }
     //Metodo para actualizar todas las suscripciones si esta vencido o no
-    static public function IsVencido(){
+    static public function IsVencido()
+    {
         foreach (ModelSuscripciones::Mostrar(null) as $key => $value) {
             if (date("Y-m-d") > $value["Fecha_Final"]) {
-                ModelSuscripciones::SusEstado($value["Id_Suscripcion"],"Vencida");
-            }else{
-                ModelSuscripciones::SusEstado($value["Id_Suscripcion"],"Activa");
+                ModelSuscripciones::SusEstado($value["Id_Suscripcion"], "Vencida");
+            } else {
+                ModelSuscripciones::SusEstado($value["Id_Suscripcion"], "Activa");
             }
-        } 
+        }
     }
 
-    static public function inputSel(){
+    static public function inputSel()
+    {
         echo json_encode(ModelSuscripciones::parqueos());
     }
-    static public function Pagos($id,$pagos){
+    static public function Pagos($id, $pagos)
+    {
         $pagosAnte = ModelSuscripciones::Mostrar($id)["Pagos"];
-        
+
         $array_numeros = explode(',', $pagosAnte);
 
         $posicion = array_search($pagos, $array_numeros);
-        
+
         if ($posicion !== false) {
             unset($array_numeros[$posicion]);
             //echo "El número $pagos estaba presente y ha sido eliminado del array.";
@@ -41,14 +49,11 @@ class ControlSuscripciones
 
         $cadena = implode(',', $array_numeros);
 
-        if(ModelSuscripciones::Pagos($id,$cadena) == "ok"){
-            echo json_encode(array("status"=>"ok"));
+        if (ModelSuscripciones::Pagos($id, $cadena) == "ok") {
+            echo json_encode(array("status" => "ok"));
         }
-            
-
-
     }
-    static public function Detalle($id,$isReporte)
+    static public function Detalle($id, $isReporte)
     {
         ControlSuscripciones::IsVencido();
 
@@ -61,16 +66,16 @@ class ControlSuscripciones
 
         switch ($datos["Duracion"]) {
             case 'Diario':
-                $factura = ControlSuscripciones::RecorrerTiempo($datos["Fecha_Inicio"], $datos["Fecha_Final"],$datos["PrecioPlan"],"day",$enteros);
+                $factura = ControlSuscripciones::RecorrerTiempo($datos["Fecha_Inicio"], $datos["Fecha_Final"], $datos["PrecioPlan"], "day", $enteros);
                 break;
             case "Semanal":
-                $factura = ControlSuscripciones::RecorrerTiempo($datos["Fecha_Inicio"], $datos["Fecha_Final"],$datos["PrecioPlan"],"week",$enteros);
+                $factura = ControlSuscripciones::RecorrerTiempo($datos["Fecha_Inicio"], $datos["Fecha_Final"], $datos["PrecioPlan"], "week", $enteros);
                 break;
             case "Mensual":
-                $factura = ControlSuscripciones::RecorrerTiempo($datos["Fecha_Inicio"], $datos["Fecha_Final"],$datos["PrecioPlan"],"month",$enteros);
+                $factura = ControlSuscripciones::RecorrerTiempo($datos["Fecha_Inicio"], $datos["Fecha_Final"], $datos["PrecioPlan"], "month", $enteros);
                 break;
             case "Anual":
-                $factura = ControlSuscripciones::RecorrerTiempo($datos["Fecha_Inicio"], $datos["Fecha_Final"],$datos["PrecioPlan"],"year",$enteros);
+                $factura = ControlSuscripciones::RecorrerTiempo($datos["Fecha_Inicio"], $datos["Fecha_Final"], $datos["PrecioPlan"], "year", $enteros);
                 break;
         }
 
@@ -86,10 +91,9 @@ class ControlSuscripciones
             "datos" => $datos,
             "factura" => $factura
         ));
-        
     }
 
-    static public function RecorrerTiempo($i,$f,$precio,$tiempo,$pagos)
+    static public function RecorrerTiempo($i, $f, $precio, $tiempo, $pagos)
     {
         // Fecha inicial
         $fechaInicio = new DateTime($i);
@@ -102,34 +106,31 @@ class ControlSuscripciones
 
         // Verificar si la fecha final ha pasado
         //if ($fechaActual > $fechaFinal) {
-            //return "Fecha vencida.";
+        //return "Fecha vencida.";
         //} else {
-            // Contador de días
-            $dias = 0;
-            $subtotal= 0;
+        // Contador de días
+        $dias = 0;
+        $subtotal = 0;
 
-            // Recorrer los días entre la fecha inicial y la fecha final
-            while ($fechaInicio <= $fechaFinal) {
-                // Añadir un día a la fecha inicial
-                $fechaInicio->modify('+1 '.$tiempo);
-                
-                // Incrementar el contador si el día actual es mayor o igual a la fecha actual
-                if ($fechaInicio <= $fechaActual) {
-                    $dias++;
-                    
-                    if (in_array($dias, $pagos)) {
-                        $detalle[$dias] = array("Fecha" => $fechaInicio->format('Y-m-d'),"Deuda" => "Pagado", "subtotal" => 'C$ '.number_format($precio,2));
-                    }else{
-                        $subtotal += $precio;
-                        $detalle[$dias] = array("Fecha" => $fechaInicio->format('Y-m-d'),"Deuda" => "Pendiente", "subtotal" => 'C$ '.number_format($precio,2));
-                    }
-                    
+        // Recorrer los días entre la fecha inicial y la fecha final
+        while ($fechaInicio <= $fechaFinal) {
+            // Añadir un día a la fecha inicial
+            $fechaInicio->modify('+1 ' . $tiempo);
+
+            // Incrementar el contador si el día actual es mayor o igual a la fecha actual
+            if ($fechaInicio <= $fechaActual) {
+                $dias++;
+
+                if (in_array($dias, $pagos)) {
+                    $detalle[$dias] = array("Fecha" => $fechaInicio->format('Y-m-d'), "Deuda" => "Pagado", "subtotal" => 'C$ ' . number_format($precio, 2));
+                } else {
+                    $subtotal += $precio;
+                    $detalle[$dias] = array("Fecha" => $fechaInicio->format('Y-m-d'), "Deuda" => "Pendiente", "subtotal" => 'C$ ' . number_format($precio, 2));
                 }
-
-                
             }
-            $detalle["Total"] = 'C$ '.number_format($subtotal,2);
-            return $detalle;
+        }
+        $detalle["Total"] = 'C$ ' . number_format($subtotal, 2);
+        return $detalle;
         //}
     }
 
@@ -168,8 +169,8 @@ class ControlSuscripciones
         );
 
         $respuesta = ModelSuscripciones::Add($dNew);
-        if(is_array($respuesta)){
-            if($respuesta["status"] =="error"){
+        if (is_array($respuesta)) {
+            if ($respuesta["status"] == "error") {
                 echo "
                 <script>
                 var Toast = Swal.mixin({
@@ -185,7 +186,7 @@ class ControlSuscripciones
                     });
                     Toast.fire({
                         icon:'error',
-                        title: '".$respuesta["msj"]."'
+                        title: '" . $respuesta["msj"] . "'
                         });
                         $('#btnAddModal').attr('disabled',false);
                      $('#btnAddModal').html('Guardar');
@@ -193,7 +194,7 @@ class ControlSuscripciones
                 </script>
                         ";
             }
-        }else
+        } else
         if ($respuesta == "ok") {
             ModelSuscripciones::estadoParqueo($datos["parqueo"], "Ocupado");
             echo "
@@ -334,7 +335,7 @@ class ControlSuscripciones
                         $('#btnEditModal').html('Guardar');
                         </script>
                         ";
-        }else if ($respuesta == "error") {
+        } else if ($respuesta == "error") {
             echo "
                 <script>
                 var Toast = Swal.mixin({
@@ -441,10 +442,10 @@ if (isset($_POST['op'])) {
             ControlSuscripciones::Del($_POST['id']);
             break;
         case 5:
-            ControlSuscripciones::Detalle($_POST['id'],false);
+            ControlSuscripciones::Detalle($_POST['id'], false);
             break;
         case 6:
-            ControlSuscripciones::Pagos($_POST["id"],$_POST["pagos"]);
+            ControlSuscripciones::Pagos($_POST["id"], $_POST["pagos"]);
             break;
         case 7:
             ControlSuscripciones::inputSel();

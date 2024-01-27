@@ -49,30 +49,30 @@ var datosTablas = () => {
     let cont = 0;
     d.map(x => {
       cont++;
-      ren += 
-      "<tr>" +
+      ren +=
+        "<tr>" +
         "<td>" + cont + "</td>" +
         "<td>" + x.Cliente + "</td>" +
         "<td>" + x.Marca + " (" + x.Placa + ")</td>" +
         "<td>" + x.NombrePlan + " (" + x.CantidadTiempo + " " + x.Duracion + ")" + "</td>" +
         "<td>" + x.NumeroParqueo + "</td>" +
         "<td>" + x.Fecha_Final + "</td>";
-        //SI esta activa bla bla bal si no bla bla bla
-        ren += 
+      //SI esta activa bla bla bal si no bla bla bla
+      ren +=
         x.Estado == "Activa" &&
-         "<td style='color:green;'>" + x.Estado + "</td>"
-        || 
+        "<td style='color:green;'>" + x.Estado + "</td>"
+        ||
         x.Estado == "Vencida" && "<td style='color:red;'>" + x.Estado + "</td>";
 
-       ren += 
+      ren +=
         "<td style='width:170px'>" +
         "<button class='btn btn-success' idDet=" + x.Id_Suscripcion + " id='btnDet'><i class='bi bi-card-text'></i></button>";
-        ren += 
+      ren +=
         x.Estado == "Activa" ? "<button class='btn btn-primary' idEdit=" + x.Id_Suscripcion + " id='btnEdit'><i class='bi bi-pen'></i></button>" : "";
-        
-        ren += 
+
+      ren +=
         "<button class='btn btn-danger' idElim=" + x.Id_Suscripcion + " id='btnElim'><i class='bi bi-trash'></i></button>" +
-      "</td>"
+        "</td>"
     });
     if (d.length === 0) {
       ren = "<tr><td colspan='9'><h4>No hay datos</h4></td></tr>";
@@ -120,7 +120,7 @@ var crud = (form) => {//SI form es nulo
 datosTablas().TSus();
 //Búsqueda
 $("#txtSearch").on("keyup", function () {
-  datosTablas().TSus($("#txtSearch").val()); 
+  datosTablas().TSus($("#txtSearch").val());
 });
 
 //Acciones para agregar
@@ -203,14 +203,14 @@ $("tbody").on("click", "#btnDet", function () {
   crud().get($(this).attr("idDet"), 5).then(d => {
     // d =JSON.parse(d);
     let tiempo;
-     switch (d.datos.Duracion) {
+    switch (d.datos.Duracion) {
       case "Diario":
         tiempo = "Dias";
         $("#Encabezado").html("Dias");
         break;
       case "Semanal":
         tiempo = "Semanas";
-        $("#Encabezado").html("Semanas"); 
+        $("#Encabezado").html("Semanas");
         break;
       case "Mensual":
         tiempo = "Meses";
@@ -222,7 +222,7 @@ $("tbody").on("click", "#btnDet", function () {
         break;
     }
     d.datos.Estado == "Activa" && $("#EstadoSuscripcion").html("<button class='btn btn-success'>Activa</button>");
-    d.datos.Estado == "Vencida" && $("#EstadoSuscripcion").html("<button class='btn btn-danger'>Vencida</button>"); 
+    d.datos.Estado == "Vencida" && $("#EstadoSuscripcion").html("<button class='btn btn-danger'>Vencida</button>");
 
     $("#usuario").val(d.datos.Usuario);
     $("#cliente").val(d.datos.Cliente);
@@ -249,7 +249,7 @@ $("#tablaFactura tbody").on("click", "#btnPago", function () {
 });
 
 
-var inputSel = () =>{
+var inputSel = () => {
   crud().get(0, 7).then(d => {
     let ren = '<option value="">---Seleccionar---</option>';
     for (var clave in d) {

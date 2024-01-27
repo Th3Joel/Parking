@@ -7,7 +7,7 @@ class ModelSuscripciones{
 	public static function Mostrar($id){
 		if ($id == null) {
 			$t = Conexion::conectar()->
-                        prepare("SELECT * from SuscripcionMostrar");
+                        prepare("SELECT * from suscripciones");
 
 			if ($t->execute()) {
 				return $t->fetchAll(PDO::FETCH_ASSOC);
