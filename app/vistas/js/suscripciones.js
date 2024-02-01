@@ -54,7 +54,7 @@ var datosTablas = () => {
         "<td>" + cont + "</td>" +
         "<td>" + x.Cliente + "</td>" +
         "<td>" + x.Marca + " (" + x.Placa + ")</td>" +
-        "<td>" + x.NombrePlan + " (" + x.CantidadTiempo + " " + x.Duracion + ")" + "</td>" +
+        "<td>" + x.NombrePlan + " (C$ " + x.PrecioPlan + "-" + x.Duracion + ")" + "</td>" +
         "<td>" + x.NumeroParqueo + "</td>" +
         "<td>" + x.Fecha_Final + "</td>";
       //SI esta activa bla bla bal si no bla bla bla
@@ -199,28 +199,34 @@ var Dfactura = (d) => {
   $("#tablaFactura tbody").html(conte);
 }
 
+function parseTiempo(d){
+  let tiempo;
+  switch (d) {
+    case "Diario":
+      tiempo = "Dias";
+      $("#Encabezado").html("Dias");
+      break;
+    case "Semanal":
+      tiempo = "Semanas";
+      $("#Encabezado").html("Semanas");
+      break;
+    case "Mensual":
+      tiempo = "Meses";
+      $("#Encabezado").html("Meses");
+      break;
+    case "Anual":
+      tiempo = "Años";
+      $("#Encabezado").html("Años");
+      break;
+  }
+  return tiempo;
+}
+
+
 $("tbody").on("click", "#btnDet", function () {
   crud().get($(this).attr("idDet"), 5).then(d => {
     // d =JSON.parse(d);
-    let tiempo;
-    switch (d.datos.Duracion) {
-      case "Diario":
-        tiempo = "Dias";
-        $("#Encabezado").html("Dias");
-        break;
-      case "Semanal":
-        tiempo = "Semanas";
-        $("#Encabezado").html("Semanas");
-        break;
-      case "Mensual":
-        tiempo = "Meses";
-        $("#Encabezado").html("Meses");
-        break;
-      case "Anual":
-        tiempo = "Años";
-        $("#Encabezado").html("Años");
-        break;
-    }
+    
     d.datos.Estado == "Activa" && $("#EstadoSuscripcion").html("<button class='btn btn-success'>Activa</button>");
     d.datos.Estado == "Vencida" && $("#EstadoSuscripcion").html("<button class='btn btn-danger'>Vencida</button>");
 
@@ -229,7 +235,7 @@ $("tbody").on("click", "#btnDet", function () {
     $("#parqueo").val(d.datos.NumeroParqueo);
     $("#facturacion").val(d.datos.Duracion + " (C$ " + d.datos.PrecioPlan + ")");
     $("#txtplan").val(d.datos.NombrePlan);
-    $("#duracion").val(d.datos.CantidadTiempo + " " + tiempo);
+    $("#duracion").val(d.datos.CantidadTiempo + " " + parseTiempo(d.datos.Duracion));
     $("#DateInicio").val(d.datos.Fecha_Inicio);
     $("#vencimiento").val(d.datos.Fecha_Final);
     Dfactura(d);

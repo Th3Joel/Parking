@@ -84,7 +84,7 @@ $parqueos = ModelSuscripciones::parqueos();
               <?php
               foreach ($vehiculos as $key => $value) {
                 echo "
-                    <option value=" . $value["Id_Vehiculo"] . ">" . $value["Cliente"] . " (" . $value["Marca"] . "-" . $value["Placa"] . ")". "</option>
+                    <option value=" . $value["Id_Vehiculo"] . ">" . $value["Cliente"] . " (" . $value["Marca"] . "-" . $value["Placa"] . ")" . "</option>
                       ";
               }
               ?>
@@ -97,7 +97,7 @@ $parqueos = ModelSuscripciones::parqueos();
               <?php
               foreach ($planes as $key => $value) {
                 echo "
-                        <option value=" . $value["Id_Planes"] . ">" . $value["NombrePlan"] . " (" . $value["Duracion"] ." C$".$value["PrecioPlan"].")" . "</option>
+                        <option value=" . $value["Id_Planes"] . ">" . $value["NombrePlan"] . " (" . $value["Duracion"] . " C$" . $value["PrecioPlan"] . ")" . "</option>
                     ";
               }
               ?>
@@ -110,7 +110,7 @@ $parqueos = ModelSuscripciones::parqueos();
           <div class="input-group mt-3">
             <span class="input-group-text">Parqueos</span>
             <select name="parqueo" id="opSel" class="form-control" required>
-              
+
             </select>
           </div>
 
@@ -151,9 +151,9 @@ $parqueos = ModelSuscripciones::parqueos();
             <select name="plan" id="txtTipo" class="form-control" required>
               <option value="">---Seleccionar---</option>
               <?php
-              foreach ($planes as $key => $value) {  
+              foreach ($planes as $key => $value) {
                 echo "
-                <option value=" . $value["Id_Planes"] . ">" . $value["NombrePlan"] . " (" . $value["Duracion"] ." C$".$value["PrecioPlan"].")" . "</option>
+                <option value=" . $value["Id_Planes"] . ">" . $value["NombrePlan"] . " (" . $value["Duracion"] . " C$" . $value["PrecioPlan"] . ")" . "</option>
                 ";
               }
               ?>
@@ -165,7 +165,7 @@ $parqueos = ModelSuscripciones::parqueos();
           </div>
           <div class="input-group mt-3">
             <span class="input-group-text">Parqueos</span>
-            <select name="parqueo" id="txtParqueo" class="form-control">
+            <select name="parqueo" id="txtParqueo" class="form-control" placeholder="Cambia a espacio libre">
 
             </select>
           </div>
@@ -185,7 +185,9 @@ $parqueos = ModelSuscripciones::parqueos();
     <div class="modal-content">
       <input type="hidden" name="token" value="<?php echo $_SESSION['tokenEdit']; ?>">
       <div class="modal-header">
-        <h4 class="modal-title" style="display: flex;width:100%;">Detalle Suscripcion <div id="EstadoSuscripcion" align="right" style="width: 70%;"></div></h4>
+        <h4 class="modal-title" style="display: flex;width:100%;">Detalle Suscripcion <div id="EstadoSuscripcion"
+            align="right" style="width: 70%;"></div>
+        </h4>
       </div>
       <div class="modal-body">
         <div id="detalle">
@@ -253,7 +255,7 @@ $parqueos = ModelSuscripciones::parqueos();
         </div>
       </div>
       <div class="modal-footer">
-        
+
         <button class="btn btn-primary" idEdit="" id="btnDetalleModal" data-dismiss="modal">Aceptar</button>
       </div>
     </div>

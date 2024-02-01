@@ -6,7 +6,7 @@ class ModelInspecciones{
 	public static function Mostrar($id){ 
 		if ($id == null) {
 			$t = Conexion::conectar()->prepare("SELECT 
-			cli.Nombre + ' ' + cli.Apellido As cliente,
+			CONCAT(cli.Nombre,' ',cli.Apellido) AS cliente,
 			ins.Id_Inspeccion,
 			ins.Fecha,
 			ins.Hora_Ingreso,
@@ -27,7 +27,7 @@ class ModelInspecciones{
 			$t=null;
 		}else{
 			$g = Conexion::conectar()->prepare("SELECT 
-			cli.Nombre + ' ' + cli.Apellido As cliente,
+			CONCAT(cli.Nombre,' ',cli.Apellido) AS cliente,
 			ins.Id_Inspeccion,
 			ins.Fecha,
 			ins.Hora_Ingreso,
@@ -103,7 +103,7 @@ class ModelInspecciones{
 									veh.Id_Vehiculo,
 									cla.TipoVehiculo AS clasificacion,
 									veh.Placa,
-									cli.Nombre + ' ' + cli.Apellido As cliente
+									CONCAT(cli.Nombre ,' ' ,cli.Apellido) As cliente
 								from 
 								vehiculos veh 
 								INNER JOIN clientes cli ON cli.Id_Cliente = veh.Id_Cliente

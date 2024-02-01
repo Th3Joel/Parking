@@ -35,9 +35,10 @@ class PDF extends FPDF
 
         $this->Ln(4);
         
+        $stat = $_GET["state"] == 0 ? "Libre" : "Ocupado";
 
-        $r = Conexion::conectar()->prepare("EXEC ObtenerStatusEspacios :status");
-        $r->bindParam(":status",$_GET["state"],PDO::PARAM_INT);
+        $r = Conexion::conectar()->prepare('SELECT * FROM parqueos WHERE Estado = :status');
+        $r->bindParam(":status",$stat,PDO::PARAM_STR);
         $r->execute();
         $h = $r->fetchAll(PDO::FETCH_ASSOC);
 

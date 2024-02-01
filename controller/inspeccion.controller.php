@@ -9,7 +9,12 @@ class ControlInspeccion{
 		return ModelInspecciones::Mostrar($id);
 	}
 	static public function Add($data){ 
-		$f = ModelInspecciones::Add($data);
+		try {
+			//code...
+			$f = ModelInspecciones::Add($data);
+		} catch (Exception $th) {
+			echo $th;
+		}
 		 if ($f == "ok") {
 			echo "
 				<script>

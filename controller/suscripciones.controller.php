@@ -160,7 +160,7 @@ class ControlSuscripciones
         $dNew = array(
             "vehiculo" => $datos["vehiculo"],
             "usuario" => $_SESSION["id"],
-            "plan" => $datos["plan"],
+            "plan" => $datos["plan"], 
             "parqueo" => $datos["parqueo"],
             "inicio" => $fechaActual,
             "final" => $fechaSumada,

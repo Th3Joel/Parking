@@ -8,7 +8,12 @@ class ControlEspacios{
 		return ModelEspacios::Mostrar($d);
 	}
 	static public function Add($n){
-		$f = ModelEspacios::Add($n);
+		try {
+			//code...
+			$f = ModelEspacios::Add($n);
+		} catch (Exception $th) {
+			echo $th;
+		}
 		if (is_array($f)) {
 			if ($f["status"] == "duplicado") {
 				echo '<script>
