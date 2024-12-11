@@ -14,7 +14,7 @@ function session() {
       return e.text();
     })
     .then(function (e) {
-      if (e == 1) {
+      if (e == 1) { 
         mensaje("Credenciales incorrectas");
       } else if (e == 2) {
         mensaje("Usuario desactivado");

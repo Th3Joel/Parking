@@ -1,0 +1,26 @@
+services:
+  app:
+    volumes:
+      #- app_data:/var/www/html
+      - ./:/var/www/html
+    depends_on:
+      - db
+    ports:
+      - "8080:80"
+    build: .
+    #restart: always
+  db:
+    image: mysql:latest
+    environment:
+      MYSQL_ROOT_PASSWORD: Joji7283**039
+      MYSQL_DATABASE: sis_inventario
+      MYSQL_USER: joel
+      MYSQL_PASSWORD: Jo12el34
+    ports: #Innecesario por que esta dentro de la red
+      - "3307:3306"
+    volumes:
+      - db_data:/var/lib/mysql
+    #restart: always
+volumes:
+  db_data:
+  #app_data:
