@@ -1,11 +1,11 @@
-FROM php:7.4-apache
+FROM php:8.3-apache
 
 RUN apt-get update && apt-get install -y zlib1g-dev libpng-dev
 RUN a2enmod rewrite
 
-#COPY . /var/www/html/
-
-#RUN rm *.sql *.yaml Dockerfile
+COPY . /var/www/html/
+COPY php.ini /usr/local/etc/php/
+RUN rm *.sql *.yaml Dockerfile *.ini
 
 RUN chown -R www-data:www-data /var/www/html
 

@@ -15,4 +15,3 @@ if (isset($_SESSION['iniciar']) && $_SESSION['iniciar'] == "ok") {
 	include "app/vistas/login.php";
 	echo ob_get_clean();
 }
-phpinfo();

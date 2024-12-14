@@ -2,7 +2,6 @@
 require  "../model/usuarios.model.php";
 session_start();
 if (isset($_POST['opcion'])) {
-	echo $_SESSION['token'] ;
 	if ($_POST["opcion"] == "session" && $_POST['token'] == $_SESSION['token']) {
 		$datos = ModelUsuarios::InitSession(array(
 			"user" => $_POST["user"]
@@ -12,9 +11,6 @@ if (isset($_POST['opcion'])) {
 				echo 2;
 				return;
 			}
-
-
-
 			if (password_verify($_POST['passwd'], $datos["passwd"])) {
 				$_SESSION['iniciar'] = "ok";
 				$_SESSION['id'] = $datos["id_user"];
