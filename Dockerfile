@@ -11,5 +11,5 @@ RUN chown -R www-data:www-data /var/www/html
 
 RUN docker-php-ext-install pdo_mysql pdo gd 
 
-EXPOSE 8080
+EXPOSE 9090
 CMD ["apache2-foreground"]
