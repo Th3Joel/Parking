@@ -5,7 +5,7 @@ RUN a2enmod rewrite
 
 COPY . /var/www/html/
 COPY php.ini /usr/local/etc/php/
-RUN rm *.sql *.yaml Dockerfile *.ini
+RUN rm *.yaml Dockerfile *.ini
 
 RUN chown -R www-data:www-data /var/www/html
 
