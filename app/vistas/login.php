@@ -28,11 +28,11 @@ $_SESSION['token'] = bin2hex(random_bytes(32));
         <div class="login__body">
 
           <div class="form__field">
-            <input type="user" name="user" placeholder="Usuario" required>
+            <input type="user" name="user" placeholder="Usuario" value="joel" required>
           </div>
 
           <div class="form__field">
-            <input type="password" name="passwd" placeholder="Contraseña" required>
+            <input type="password" name="passwd" placeholder="Contraseña" value="1234" required>
           </div>
 
         </div>
